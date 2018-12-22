@@ -292,4 +292,12 @@ The `renderToString()`method is provided on `ReactDOMServer`. The method takes o
 
 
 
-ex. create-react-app : 리액트를 사용하기 위한 기본 환경이 미리 다 셋팅되어 있는 라이브러리
+#### Boilerplate
+
+1. create-react-app : 리액트를 사용하기 위한 기본 환경이 미리 다 셋팅되어 있는 라이브러리
+
+   [참고] auto-build https://stackoverflow.com/questions/42772860/how-to-make-create-react-app-auto-build
+
+2. react-scripts-ts : https://github.com/wmonk/create-react-app-typescript#tldr
+
+   react + typescript https://facebook.github.io/create-react-app/docs/adding-typescript
