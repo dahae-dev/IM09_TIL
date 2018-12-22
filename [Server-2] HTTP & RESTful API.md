@@ -115,3 +115,11 @@ A RESTful API -- also referred to as a RESTful web service -- is based on repres
   * JSONP
     * Technically older than AJAX
     * GET requests only
+
+
+
+#### API testing
+
+https://www.npmjs.com/package/supertest
+
+https://hackernoon.com/api-testing-using-supertest-1f830ce838f1
