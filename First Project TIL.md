@@ -167,9 +167,9 @@ express-generator 패키지를 사용하면 자동적으로 MVC 패턴 구조 �
 
 ## [181213 TIL] MySQL Migration
 
-MySQL로 database 변경.
+서로 관계가 없는 데이터란 없다. 또한 mongoose 라이브러리를 사용하여 MongoDB를 만지다 보니, 결론적으로는 유연성이라는 MongoDB만의 장점을 느낄 수도 없었다.
 
-DB Schema 및 route별 필요한 query문 작성.
+따라서 최종적으로 MySQL로 database 변경. DB Schema 및 route별 필요한 query문 작성.
 
 
 
@@ -203,8 +203,6 @@ REST API 작성.
 
 
 
-
-
 ## [181215 TIL] ORM - Sequelize
 
 sequelize 공부 및 refactoring.
@@ -218,3 +216,124 @@ sequelize 공부 및 refactoring.
 * MVC 프레임워크를 기반으로 한 express.js에서의 sequelize 연동 방법 - 모델 정의 및 모듈 불러오기
 
   [ 참고 ] https://sequelize.readthedocs.io/en/1.7.0/articles/express/
+
+
+
+
+
+## [181217 TIL] Authentication
+
+Authentication middleware 사용하여, 로그인하여 세션 인증된 유저만 포스트 작성할 수 있게 구현.
+
+* Session vs. Cookie
+
+  세션은 서버에서, 쿠키는 클라이언트에서 갖고 있음.
+  세션은 메모리에 저장되어 컴퓨터를 끄면 세션이 destroyed되어 사라지지만, 쿠키는 하드드라이브에 저장되어 컴퓨터를 끄더라도 계속 유지되어 HTTP 요청시마다 헤더에 쿠키를 포함시켜서 요청함으로써 사용자 인증 가능.
+
+* JWT
+
+  JWT도 유사한 개념으로, 토큰에 만료기간 및 signature가 포함되어 있어 좀 더 보안성이 높으며, http 헤더 또는 url의 파라미터로 전달할 수 있어, 유저가 요청했을 때에만 토큰 검증을 하면 되므로 세션 관리가 필요없어 서버를 stateless 하게 관리할 수 있다. [참고] https://velopert.com/2389
+
+
+
+
+
+## [181218-19 TIL] AWS Deployment
+
+AWS deployment flow
+
+- Install Node.js and MySQL server on the EC2 instance
+
+  * EC2 인스턴스 생성 시 부여받는 SSH key 관리 잘 해야함.
+
+    `mv <ssh key name> ~/.ssh`  // .ssh 폴더에서 별도 관리
+
+    `cd !$`
+
+    `cd ~/.ssh`
+
+    `cdmod 400 <ssh key name>`  // ssh에 대한 접근 권한 변경
+
+    `ls -al`  // 변경사항 확인
+
+  * PM2 : 개발 시 nodemon 사용, 배포 시 pm2 사용
+
+    서버가 에러로 인해 꺼졌을 때 서버를 다시 켜주는 기능.
+
+    멀티 프로세싱 -> 하나의 프로세스가 받는 부하가 적어져 서비스 원할하게 운영 가능,
+
+    하지만 서버의 메모리 같은 자원 공유 X (세션 공유 X) -> Redis 사용하여 세션 공유
+
+    [참고] EACCES, permission denied 에러시 `sudo chmod -R 777 .pm2`
+
+  * MySQL 서버 환경설정 변경 
+
+    `sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf` -> bind-address 0.0.0.0 으로 변경
+
+    [참고] https://www.cyberciti.biz/faq/howto-install-mysql-on-ubuntu-linux-16-04/
+
+    서버 터미널에서 MySQL 설치 및 사용자 권한 설정
+
+    [참고] https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-18-04
+
+- clone the code for my server
+
+- install all the node dependencies
+
+  `curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -`
+
+  `sudo apt-get install -y nodejs`
+
+  `npm i`
+
+- start the server app.js
+
+  `pm2 start app.js`
+
+  [참고] cluster mode 사용시`pm2 start app.js -i 0`
+
+주의 사항
+
+* .gitingnore, .env 파일을 이용하여 보안 주의 (.env 파일은 app.js에서 `require('dotenv').config();` 실행시켜 줘야함)
+
+* bcrypt uninstall -> Ubuntu용으로 다시 install -> `sudo apt-get install build-essential` 
+
+  `npm install --save bcryptjs && npm uninstall --save bcrypt` (or bcrypt-nodejs)
+
+
+
+## [181220 TIL] 마무리
+
+1. 이른 배포의 중요성
+
+   Agile Scrum 방식을 초반부터 강조했으나, 진행하다 보니 정작 실천하지 못하고 waterfall 방식으로 진행하게 되었다.
+
+   그러다 보니 빠른 배포가 진행되지 못하여 마지막 AWS 배포 시, 개발 환경(mac)과 배포 환경(linux)의 차이로 인한 충돌이 발생하였고, 조금씩 진행된 사항에 대해서는 오류 수정이 가능하였겠지만, 다 완성되고 난 후 한꺼번에 터진 오류를 수정하려고 하니 아무리 수정을 하려고 하여도 끝끝내 모든 오류 수정이 불가하였다.
+
+   따라서 앞으로는 배포는 최대한 일찍, 자주 진행하며, 환경 차이로 인해 충돌이 발생하는 라이브러리들(bcrypt, passport etc.)에 대해 미리 인지하고 충돌 여부를 확인하면서 진행해야 하중에 한꺼번에 터지는 일이 없을 것 같다.
+
+   또한 DB 같은 경우에도 AWS RDS를 이용하여 클라우드 DB 서버를 미리 띄워놓고 사용해야 동일한 데이터에 팀원들이 다같이 접근하여 사용하기에 어려움이 없을 것 같다.
+
+   다시 하게 된다면, 우선 AWS RDS로 MySQL 서버 배포부터 한 다음, scrum 단위별로 지속적인 배포를 통해 테스트를 계속 해보거나 혹은 docker를 사용하여 개발 환경 그대로를 배포하는 방법도 고려해 볼 것 같다. [docker에 대해 좀 더 알아보기]
+
+2. Git Flow 에 대한 이해
+
+   local, origin, upstream의 branch들이 삼선일체를 이루도록!
+
+   conflict이 많은 경우 미리 git pull을 받아서 local에서 해당 feature와 merge 한 후 다시 origin으로 push하면 PR이 자동 업데이트 되어 충돌이 없어진다. (git pull -- rebase upstream dev : merge 커밋없이 fetch만 해 옴)
+
+3. ESLint 사용
+
+   팀웍 작업시 서로 간의 코드 스타일이 너무 달라 merge 시 그로 인해 불필요한 conflict가 많이 발생하는 경우를 방지하기 위해서라도 반드시 필요!
+
+4. MVC 패턴
+
+   express-generator가 MVC 패턴을 지원해주나, 결국 라우팅 구현에 급급하다 보니 최종적으로는 MVC 패턴을 고려하지 못한 채 route에 model과 controller 부분이 혼재하게 되었다. 다음 번에는 꼭 MVC 패턴에 맞게 제대로 구현해 볼 것!
+
+
+
+[reference]
+
+https://hackernoon.com/setting-up-node-js-with-a-database-part-1-3f2461bdd77f
+
+https://medium.com/@tinabu/how-to-deploy-your-node-js-server-using-mysql-database-on-aws-mac-e64aaa2c86c
