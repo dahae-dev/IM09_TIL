@@ -1,5 +1,7 @@
 # Git Commands
 
+
+
 #### linux 기본 명령어
 
 * 현재 작업위치 확인 
@@ -42,6 +44,7 @@
   ```
   $ cat FILE_NAME
   ```
+
 
 
 #### Git 명령어
@@ -110,6 +113,9 @@
 
   ```
   $ git merge BRANCH_NAME
+  
+  // merge coflict resolve 잘못 했을 때 돌아가는 방법
+  $ git reset --hard <돌아가고 싶은 commit>
   ```
 
 * GitHub 연동
@@ -146,3 +152,9 @@
 
   * git fetch : 로컬저장소와 원격저장소의 변경사항이 다를 때(즉, 병합시 충돌이 발생할 때) 이를 비교 대조하고 git merge 명령어와 함께 최신 데이터를 반영하거나 충돌 문제 해결
   * git diff : 로컬 저장소 브랜치와 원격 저장소 브랜치의 차이점 확인
+
+
+
+#### Reference
+
+http://www.devpools.kr/2017/01/31/%EA%B0%9C%EB%B0%9C%EB%B0%94%EB%B3%B4%EB%93%A4-1%ED%99%94-git-back-to-the-future/
