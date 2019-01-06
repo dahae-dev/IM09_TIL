@@ -7,7 +7,6 @@
 * SSR ( Server Side Rendering )
 
   ```text
-  - Server Side Rendering
   - SEO(Search Engine Optimization: 검색 엔진 최적화)에 유리하다
   - View 초기 로딩 속도가 빠르다.
   - View를 서버에서 부터 렌더링하여 가져오기 때문에 서버에 부담을 준다.
@@ -16,7 +15,6 @@
 * CSR ( Client Side Rendering )
 
   ```text
-  - Client Side Rendering
   - SSR보다는 비교적 느리다.
   - HTML과 자바스크립트 등 각종 리소스를 다운 받은 후 브라우저에서 렌더링한다.
   ```
@@ -25,7 +23,7 @@
 
   React JS 라이브러리를 핵심으로 한 NEXT JS 프레임워크를 이용하면, 처음 페이지를 요청할 때에는 서버 사이드 렌더링을 하고, 그 이후에는 내부에서 페이지가 이동될 때 데이터를 가져와서 페이지를 브라우저에서 렌더링함으로써 SSR과 CSR의 장점을 모두 취할 수 있다.
 
-  Server rendering is very convenient in your first page load, for all the reasons we saw above, but when it comes to navigating inside the website, client-side rendering is key to speed up the page load and improve the user experience.
+  Server rendering is very convenient in your first page load, but when it comes to navigating inside the website, client-side rendering is key to speed up the page load and improve the user experience.
 
 
 
@@ -48,6 +46,7 @@
 - **Dynamic Components**: you can import JavaScript modules and React Components dynamically (<https://github.com/zeit/next.js#dynamic-import>).
 
 - **Static Exports**: using the `next export` command, Next.js allows you to export a fully static site from your app.
+
 
 
 #### How to start
@@ -446,7 +445,7 @@ That's a feature of ▲ZEIT Now. You only need to start your app on any port you
 
 #### Typescript Integration
 
-https://itnext.io/next-js-awesome-typescript-integration-d05cfe9af057
+https://medium.com/@miiny/setup-a-server-rendered-reactjs-application-with-next-js-typescript-sass-7cd3e7e79706
 
 
 
