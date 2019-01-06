@@ -8,6 +8,18 @@ Authorization is determining if the user has the right permission to perform the
 
 
 
+- #### Session vs. Cookie
+
+  세션은 서버에서, 쿠키는 클라이언트에서 갖고 있음.
+  세션은 메모리에 저장되어 컴퓨터를 끄면 세션이 destroyed되어 사라지지만, 쿠키는 하드드라이브에 저장되어 컴퓨터를 끄더라도 계속 유지되어 HTTP 요청시마다 헤더에 쿠키를 포함시켜서 요청함으로써 사용자 인증 가능.
+
+- #### JWT
+
+  JWT도 유사한 개념으로, 토큰에 만료기간 및 signature가 포함되어 있어 좀 더 보안성이 높으며, http 헤더 또는 url의 파라미터로 전달할 수 있어, 유저가 요청했을 때에만 토큰 검증을 하면 되므로 세션 관리가 필요없어 서버를 stateless 하게 관리할 수 있다. [참고] https://velopert.com/2389
+
+
+
+
 ## Authentication
 
 
@@ -445,8 +457,6 @@ router.delete('/:id', [auth, admin], async (req, res) => { // add middleware as 
   res.send(genre);
 });
 ```
-
-
 
 
 
