@@ -116,6 +116,8 @@
   
   // merge coflict resolve 잘못 했을 때 돌아가는 방법
   $ git reset --hard <돌아가고 싶은 commit>
+  // reset한 다음 다시 remote repo로 push
+  $ git push --force REMOTE_REPO_NAME BRANCH_NAME
   ```
 
 * GitHub 연동
