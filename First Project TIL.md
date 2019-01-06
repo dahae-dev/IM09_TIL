@@ -258,6 +258,8 @@ AWS deployment flow
 
   * PM2 : 개발 시 nodemon 사용, 배포 시 pm2 사용
 
+    ` sudo npm i pm2 -g` : pm2는 반드시 global로 설치
+
     서버가 에러로 인해 꺼졌을 때 서버를 다시 켜주는 기능.
 
     멀티 프로세싱 -> 하나의 프로세스가 받는 부하가 적어져 서비스 원할하게 운영 가능,
@@ -265,6 +267,8 @@ AWS deployment flow
     하지만 서버의 메모리 같은 자원 공유 X (세션 공유 X) -> Redis 사용하여 세션 공유
 
     [참고] EACCES, permission denied 에러시 `sudo chmod -R 777 .pm2`
+
+    ​	     Error: listen EACCES: permission denied 0.0.0.0:80 에러시  `sudo pm2 start`
 
   * MySQL 서버 환경설정 변경 
 
