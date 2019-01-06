@@ -301,3 +301,9 @@ The `renderToString()`method is provided on `ReactDOMServer`. The method takes o
 2. react-scripts-ts : https://github.com/wmonk/create-react-app-typescript#tldr
 
    react + typescript https://facebook.github.io/create-react-app/docs/adding-typescript
+
+```
+$ npm install --save typescript @types/node @types/react @types/react-dom @types/jest
+$ # or
+$ yarn add typescript @types/node @types/react @types/react-dom @types/jest
+```

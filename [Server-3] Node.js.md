@@ -93,6 +93,22 @@ module.exports = exports = function Constructor() {
 };
 ```
 
+**ES6 syntax**
+
+1) default exports allows us to export one module per file.
+
+`export default MODULE_NAME` : can exports objects, functions, and primitive data types
+
+`import VARIABLE_NAME from 'FILE_PATH'`
+
+2) named exports allow us to export data through the use of variables.
+
+`export { VARIABLE_NAMES }` : when we use named exports, we are not setting the properties on an object. Each export is stored in its own variable.
+
+named imports use `import` keyword and include the variables in a set of `{}`
+
+can place the keyword `export` in front of variable declarations.
+
 
 
 #### [Core Modules]
